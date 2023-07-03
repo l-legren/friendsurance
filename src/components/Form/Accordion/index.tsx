@@ -8,17 +8,22 @@ import {
     ContentContainer,
     AngleUp,
 } from "./Accordion.styled";
+import { InputField } from "..";
 
 interface AccordionProps {
     children: React.ReactNode;
+    inputField: InputField;
 }
 
-export const Accordion = ({ children }: AccordionProps) => {
+export const Accordion = ({ children, inputField }: AccordionProps) => {
     const [isExpanded, setIsExpanded] = useState<boolean>(false);
     return (
         <AccordionWrapper>
             <ClickableHeader onClick={() => setIsExpanded(!isExpanded)}>
-                <AccordionHeader isExpanded={isExpanded} />
+                <AccordionHeader
+                    isExpanded={isExpanded}
+                    inputField={inputField}
+                />
             </ClickableHeader>
             <ContentContainer>
                 <AccordionContent isExpanded={isExpanded}>

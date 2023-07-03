@@ -19,7 +19,8 @@ export const ContentContainer = styled.div`
 `;
 
 export const AngleUp = styled(FaAngleUp)`
-    font-size: 2rem;
+    font-size: 2.25rem;
     cursor: pointer;
+    margin-top: 2rem;
 `;
 

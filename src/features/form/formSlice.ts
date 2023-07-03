@@ -19,8 +19,12 @@ const formSlice = createSlice({
         updateGender: (state, action) => {
             state.gender = action.payload;
         },
+        resetGender: (state) => {
+            state.gender = initialState.gender;
+        },
     },
 });
 
-export const { updateName, resetName } = formSlice.actions;
+export const { updateName, resetName, updateGender, resetGender } =
+    formSlice.actions;
 export default formSlice.reducer;
