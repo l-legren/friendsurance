@@ -1,15 +1,18 @@
 import React from "react";
 import { Header } from "./components/Header";
 import { createGlobalStyle, ThemeProvider } from "styled-components";
+import { FriendsuranceForm } from "./components/Form";
 
 const theme = {
     colors: {
-        primary: "#007bff",
+        primary: "#3399FF",
+        primaryDarker: "#2b7ccd",
         secondary: "#6c757d",
         error: "#dc3545",
+        errorDarker: "#6F1635",
     },
     fonts: {
-        primary: "Arial, sans-serif",
+        primary: "Roboto, sans-serif",
         secondary: "Helvetica, sans-serif",
     },
 };
@@ -27,6 +30,7 @@ function App() {
         <ThemeProvider theme={theme}>
             <GlobalStyle />
             <Header />
+            <FriendsuranceForm />
         </ThemeProvider>
     );
 }
