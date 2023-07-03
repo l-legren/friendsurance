@@ -10,13 +10,22 @@ import {
     ButtonWrapper,
 } from "./Form.styled";
 import { useForm } from "react-hook-form";
+import { useDispatch } from "react-redux";
+import { updateName } from "../../features/form/formSlice";
 
 export const FriendsuranceForm = () => {
     const {
         register,
         handleSubmit,
+        getValues,
         formState: { errors },
     } = useForm();
+    const dispatch = useDispatch();
+
+    const handleSubmitName = () => {
+        const name = getValues("name");
+        dispatch(updateName(name));
+    };
 
     return (
         <FormContainer>
@@ -42,7 +51,9 @@ export const FriendsuranceForm = () => {
                     <ErrorMessage>{errors.name.message as string}</ErrorMessage>
                 )}
                 <ButtonWrapper>
-                    <SubmitButton type="submit">Submit</SubmitButton>
+                    <SubmitButton type="submit" onClick={handleSubmitName}>
+                        Submit
+                    </SubmitButton>
                     <CancelButton>Clear</CancelButton>
                 </ButtonWrapper>
             </Accordion>
