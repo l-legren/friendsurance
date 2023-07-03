@@ -11,13 +11,14 @@ import {
 } from "./Form.styled";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
-import { updateName } from "../../features/form/formSlice";
+import { updateName, resetName } from "../../features/form/formSlice";
 
 export const FriendsuranceForm = () => {
     const {
         register,
         handleSubmit,
         getValues,
+        setValue,
         formState: { errors },
     } = useForm();
     const dispatch = useDispatch();
@@ -25,6 +26,10 @@ export const FriendsuranceForm = () => {
     const handleSubmitName = () => {
         const name = getValues("name");
         dispatch(updateName(name));
+    };
+    const handleResetName = () => {
+        setValue("name", "");
+        dispatch(resetName());
     };
 
     return (
@@ -54,7 +59,7 @@ export const FriendsuranceForm = () => {
                     <SubmitButton type="submit" onClick={handleSubmitName}>
                         Submit
                     </SubmitButton>
-                    <CancelButton>Clear</CancelButton>
+                    <CancelButton onClick={handleResetName}>Clear</CancelButton>
                 </ButtonWrapper>
             </Accordion>
         </FormContainer>

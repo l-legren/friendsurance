@@ -9,7 +9,7 @@ export const FormContainer = styled.div`
 export const Label = styled.label`
     margin-bottom: 5px;
     font-weight: 300;
-    font-size: 1rem;
+    font-size: 1.25rem;
     margin-bottom: 2rem;
 `;
 
@@ -18,6 +18,9 @@ export const Input = styled.input`
     margin-bottom: 10px;
     max-width: 200px;
     margin-bottom: 2rem;
+    height: 30px;
+    font-size: 1.25rem;
+    /* border-radius: 5px; */
 `;
 
 export const SubmitButton = styled.button`

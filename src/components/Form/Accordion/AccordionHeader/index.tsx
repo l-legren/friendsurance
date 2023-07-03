@@ -1,12 +1,20 @@
 import React from "react";
 import { Answer, HeaderWrapper, Title, Marker } from "./AccordionHeader.styled";
+import { useSelector } from "react-redux";
 
-export const AccordionHeader = () => {
+interface AccordionHeaderProps {
+    isExpanded: boolean;
+}
+
+export const AccordionHeader = ({ isExpanded }: AccordionHeaderProps) => {
+    const inputName = useSelector(({ form }) => form.name);
     return (
-        <HeaderWrapper>
-            <Title>Question 1</Title>
-            <Answer>Answer 1</Answer>
-            <Marker />
-        </HeaderWrapper>
+        <>
+            <HeaderWrapper isExpanded={isExpanded}>
+                <Title>Question 1</Title>
+                <Answer>{inputName}</Answer>
+                <Marker />
+            </HeaderWrapper>
+        </>
     );
 };
