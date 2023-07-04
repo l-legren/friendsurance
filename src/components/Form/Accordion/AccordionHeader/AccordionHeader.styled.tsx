@@ -13,10 +13,13 @@ export const HeaderWrapper = styled.div<{ isExpanded: boolean }>`
 
 export const Title = styled.h4`
     margin-left: 1rem;
+    width: 35%
 `;
 
 export const Answer = styled.p`
     text: gray;
+    text-align: left;
+    width: 60%; 
 `;
 
 export const Marker = styled.div`

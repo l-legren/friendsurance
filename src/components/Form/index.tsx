@@ -28,6 +28,8 @@ import {
     resetInsurances,
     updateEmployment,
     resetEmployment,
+    updateNumber,
+    resetNumber,
 } from "../../features/form/formSlice";
 
 export enum InputField {
@@ -65,6 +67,9 @@ export const FriendsuranceForm = () => {
         } else if (field === InputField.Employment) {
             const employment = getValues(InputField.Employment);
             dispatch(updateEmployment(employment));
+        } else if (field === InputField.PhoneNumber) {
+            const number = getValues(InputField.PhoneNumber);
+            dispatch(updateNumber(number));
         }
     };
 
@@ -84,6 +89,9 @@ export const FriendsuranceForm = () => {
         } else if (field === InputField.Employment) {
             setValue(InputField.Employment, "");
             dispatch(resetEmployment());
+        } else if (field === InputField.PhoneNumber) {
+            setValue(InputField.PhoneNumber, "");
+            dispatch(resetNumber());
         }
     };
 
@@ -287,6 +295,40 @@ export const FriendsuranceForm = () => {
                     </SubmitButton>
                     <CancelButton
                         onClick={() => handleReset(InputField.Employment)}
+                    >
+                        Clear
+                    </CancelButton>
+                </ButtonWrapper>
+            </Accordion>
+            <Accordion inputField={InputField.PhoneNumber}>
+                <Label htmlFor="number">Phone number</Label>
+                <Input
+                    type="text"
+                    id="number"
+                    {...register("number", {
+                        required: "Phone number is required",
+                        pattern: {
+                            value: /^\d{7,12}$/,
+                            message:
+                                "Phone number must be between 7 and 12 digits",
+                        },
+                    })}
+                />
+                {errors.number && (
+                    <ErrorMessage>
+                        {errors.number.message as string}
+                    </ErrorMessage>
+                )}
+
+                <ButtonWrapper>
+                    <SubmitButton
+                        type="submit"
+                        onClick={() => handleUpdate(InputField.PhoneNumber)}
+                    >
+                        Submit
+                    </SubmitButton>
+                    <CancelButton
+                        onClick={() => handleReset(InputField.PhoneNumber)}
                     >
                         Clear
                     </CancelButton>

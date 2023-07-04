@@ -6,6 +6,7 @@ const initialState = {
     birthdate: "Date unknown",
     insurances: "No insurances added",
     employment: "No data",
+    number: "no number"
 };
 
 const formSlice = createSlice({
@@ -42,6 +43,12 @@ const formSlice = createSlice({
         resetEmployment: (state) => {
             state.employment = initialState.employment;
         },
+        updateNumber: (state, action) => {
+            state.number = action.payload;
+        },
+        resetNumber: (state) => {
+            state.number = initialState.number;
+        },
     },
 });
 
@@ -56,5 +63,7 @@ export const {
     resetInsurances,
     updateEmployment,
     resetEmployment,
+    updateNumber,
+    resetNumber
 } = formSlice.actions;
 export default formSlice.reducer;
