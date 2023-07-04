@@ -3,7 +3,7 @@ import { createSlice } from "@reduxjs/toolkit";
 const initialState = {
     name: "No name",
     gender: "No gender specified",
-    dateOfBirth: "Unknown",
+    birthdate: "Date unknown",
 };
 
 const formSlice = createSlice({
@@ -22,9 +22,15 @@ const formSlice = createSlice({
         resetGender: (state) => {
             state.gender = initialState.gender;
         },
+        updateBirthdate: (state, action) => {
+            state.birthdate = action.payload;
+        },
+        resetBirthdate: (state) => {
+            state.birthdate = initialState.birthdate;
+        },
     },
 });
 
-export const { updateName, resetName, updateGender, resetGender } =
+export const { updateName, resetName, updateGender, resetGender, updateBirthdate, resetBirthdate } =
     formSlice.actions;
 export default formSlice.reducer;

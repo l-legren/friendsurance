@@ -11,6 +11,7 @@ import {
     RadioWrapper,
     RadioInput,
     RadioLabel,
+    FieldHeader,
 } from "./Form.styled";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -19,12 +20,14 @@ import {
     resetName,
     updateGender,
     resetGender,
+    updateBirthdate,
+    resetBirthdate,
 } from "../../features/form/formSlice";
 
 export enum InputField {
     Name = "name",
     Gender = "gender",
-    Birth = "birth",
+    Birth = "birthdate",
     Insurances = "insurances",
     Employment = "employment",
     PhoneNumber = "phoneNumber",
@@ -40,22 +43,30 @@ export const FriendsuranceForm = () => {
     } = useForm();
     const dispatch = useDispatch();
 
-    const handleSubmitName = () => {
-        const name = getValues("name");
-        dispatch(updateName(name));
-    };
-    const handleResetName = () => {
-        setValue("name", "");
-        dispatch(resetName());
+    const handleUpdate = (field: InputField) => {
+        if (field === InputField.Name) {
+            const name = getValues(InputField.Name);
+            dispatch(updateName(name));
+        } else if (field === InputField.Gender) {
+            const gender = getValues(InputField.Gender);
+            dispatch(updateGender(gender));
+        } else if (field === InputField.Birth) {
+            const birthdate = getValues(InputField.Birth);
+            dispatch(updateBirthdate(birthdate));
+        }
     };
 
-    const handleSubmitGender = () => {
-        const gender = getValues("gender");
-        dispatch(updateGender(gender));
-    };
-    const handleResetGender = () => {
-        setValue("gender", "");
-        dispatch(resetGender());
+    const handleReset = (field: InputField) => {
+        if (field === InputField.Name) {
+            setValue(InputField.Name, "");
+            dispatch(resetName());
+        } else if (field === InputField.Gender) {
+            setValue(InputField.Gender, "");
+            dispatch(resetGender());
+        } else if (field === InputField.Birth) {
+            setValue(InputField.Birth, "");
+            dispatch(resetBirthdate());
+        }
     };
 
     return (
@@ -82,14 +93,19 @@ export const FriendsuranceForm = () => {
                     <ErrorMessage>{errors.name.message as string}</ErrorMessage>
                 )}
                 <ButtonWrapper>
-                    <SubmitButton type="submit" onClick={handleSubmitName}>
+                    <SubmitButton
+                        type="submit"
+                        onClick={() => handleUpdate(InputField.Name)}
+                    >
                         Submit
                     </SubmitButton>
-                    <CancelButton onClick={handleResetName}>Clear</CancelButton>
+                    <CancelButton onClick={() => handleReset(InputField.Name)}>
+                        Clear
+                    </CancelButton>
                 </ButtonWrapper>
             </Accordion>
             <Accordion inputField={InputField.Gender}>
-                {/* <Label htmlFor="gender">What is your gender?</Label> */}
+                <FieldHeader>What is your gender?</FieldHeader>
                 <RadioWrapper>
                     <RadioInput
                         type="radio"
@@ -118,10 +134,41 @@ export const FriendsuranceForm = () => {
                     </ErrorMessage>
                 )}
                 <ButtonWrapper>
-                    <SubmitButton type="submit" onClick={handleSubmitGender}>
+                    <SubmitButton
+                        type="submit"
+                        onClick={() => handleUpdate(InputField.Gender)}
+                    >
                         Submit
                     </SubmitButton>
-                    <CancelButton onClick={handleResetGender}>
+                    <CancelButton
+                        onClick={() => handleReset(InputField.Gender)}
+                    >
+                        Clear
+                    </CancelButton>
+                </ButtonWrapper>
+            </Accordion>
+            <Accordion inputField={InputField.Birth}>
+                <Label htmlFor="name">When have you been born?</Label>
+                <Input
+                    type="date"
+                    id="birthDate"
+                    {...register("birthDate", {
+                        required: "Please pick your birthdate",
+                    })}
+                />
+                {errors.birthDate && (
+                    <ErrorMessage>
+                        {errors.birthDate.message as string}
+                    </ErrorMessage>
+                )}
+                <ButtonWrapper>
+                    <SubmitButton
+                        type="submit"
+                        onClick={() => handleUpdate(InputField.Birth)}
+                    >
+                        Submit
+                    </SubmitButton>
+                    <CancelButton onClick={() => handleReset(InputField.Birth)}>
                         Clear
                     </CancelButton>
                 </ButtonWrapper>

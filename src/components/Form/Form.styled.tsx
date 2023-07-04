@@ -13,11 +13,18 @@ export const Label = styled.label`
     margin-top: 2rem;
 `;
 
+export const FieldHeader = styled.header`
+    font-weight: 300;
+    font-size: 1.25rem;
+    margin-bottom: 2rem;
+    margin-top: 2rem;
+`;
+
 export const Input = styled.input`
     padding: 5px;
     margin-bottom: 10px;
     max-width: 200px;
-    margin-bottom: 2rem;
+    /* margin-bottom: 2rem; */
     height: 30px;
     font-size: 1.25rem;
 `;
@@ -78,6 +85,7 @@ export const CancelButton = styled.button`
 export const ButtonWrapper = styled.div`
     display: flex;
     margin-bottom: 2rem;
+    margin-top: 2rem;
 `;
 
 export const ErrorMessage = styled.span`

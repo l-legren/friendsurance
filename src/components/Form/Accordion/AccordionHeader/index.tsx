@@ -12,7 +12,7 @@ export const AccordionHeader = ({
     isExpanded,
     inputField,
 }: AccordionHeaderProps) => {
-    const { name, gender } = useSelector(({ form }) => form);
+    const { name, gender, birthDate } = useSelector(({ form }) => form);
     const [headerParameters, setHeaderParameters] = useState({
         title: "",
         answer: "",
@@ -24,9 +24,15 @@ export const AccordionHeader = ({
                 ? setHeaderParameters({ title: "Name", answer: name })
                 : inputField === InputField.Gender
                 ? setHeaderParameters({ title: "Gender", answer: gender })
+                : inputField === InputField.Birth
+                ? setHeaderParameters({
+                      title: "Birth Date",
+                      answer: birthDate,
+                  })
                 : "";
         headerSetter();
-    }, []);
+    }, [headerParameters]);
+
     return (
         <>
             <HeaderWrapper isExpanded={isExpanded}>
