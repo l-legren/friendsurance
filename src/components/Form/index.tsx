@@ -10,8 +10,10 @@ import {
     ButtonWrapper,
     InputWrapper,
     RadioCheckboxInput,
-    RadioLabel,
+    RadioCheckboxLabel,
     FieldHeader,
+    StyledSelect,
+    StyledOption,
 } from "./Form.styled";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -24,6 +26,8 @@ import {
     resetBirthdate,
     updateInsurances,
     resetInsurances,
+    updateEmployment,
+    resetEmployment,
 } from "../../features/form/formSlice";
 
 export enum InputField {
@@ -58,6 +62,9 @@ export const FriendsuranceForm = () => {
         } else if (field === InputField.Insurances) {
             const insurances = getValues(InputField.Insurances);
             dispatch(updateInsurances(insurances));
+        } else if (field === InputField.Employment) {
+            const employment = getValues(InputField.Employment);
+            dispatch(updateEmployment(employment));
         }
     };
 
@@ -74,6 +81,9 @@ export const FriendsuranceForm = () => {
         } else if (field === InputField.Insurances) {
             setValue(InputField.Insurances, []);
             dispatch(resetInsurances());
+        } else if (field === InputField.Employment) {
+            setValue(InputField.Employment, "");
+            dispatch(resetEmployment());
         }
     };
 
@@ -123,7 +133,9 @@ export const FriendsuranceForm = () => {
                             required: "Please select one value",
                         })}
                     />
-                    <RadioLabel htmlFor="Male">Female</RadioLabel>
+                    <RadioCheckboxLabel htmlFor="Male">
+                        Female
+                    </RadioCheckboxLabel>
                 </InputWrapper>
                 <InputWrapper>
                     <RadioCheckboxInput
@@ -134,7 +146,7 @@ export const FriendsuranceForm = () => {
                             required: "Please select one value",
                         })}
                     />
-                    <RadioLabel htmlFor="Male">Male</RadioLabel>
+                    <RadioCheckboxLabel htmlFor="Male">Male</RadioCheckboxLabel>
                 </InputWrapper>
                 {errors.gender && (
                     <ErrorMessage>
@@ -190,7 +202,9 @@ export const FriendsuranceForm = () => {
                         value="Health"
                         {...register(InputField.Insurances)}
                     />
-                    <Label htmlFor="health">Health Insurance</Label>
+                    <RadioCheckboxLabel htmlFor="health">
+                        Health Insurance
+                    </RadioCheckboxLabel>
                 </InputWrapper>
                 <InputWrapper>
                     <RadioCheckboxInput
@@ -199,25 +213,31 @@ export const FriendsuranceForm = () => {
                         value="Car"
                         {...register(InputField.Insurances)}
                     />
-                    <Label htmlFor="car">Car Insurance</Label>
+                    <RadioCheckboxLabel htmlFor="car">
+                        Car Insurance
+                    </RadioCheckboxLabel>
                 </InputWrapper>
                 <InputWrapper>
                     <RadioCheckboxInput
                         type="checkbox"
                         id="liability"
-                        value='Liability'
+                        value="Liability"
                         {...register(InputField.Insurances)}
                     />
-                    <Label htmlFor="liability">Liability Insurance</Label>
+                    <RadioCheckboxLabel htmlFor="liability">
+                        Liability Insurance
+                    </RadioCheckboxLabel>
                 </InputWrapper>
                 <InputWrapper>
                     <RadioCheckboxInput
                         type="checkbox"
                         id="second-car"
-                        value='Second car'
+                        value="Second car"
                         {...register(InputField.Insurances)}
                     />
-                    <Label htmlFor="second-car">Second Car Insurance</Label>
+                    <RadioCheckboxLabel htmlFor="second-car">
+                        Second Car Insurance
+                    </RadioCheckboxLabel>
                 </InputWrapper>
 
                 {errors.insurances && (
@@ -234,6 +254,39 @@ export const FriendsuranceForm = () => {
                     </SubmitButton>
                     <CancelButton
                         onClick={() => handleReset(InputField.Insurances)}
+                    >
+                        Clear
+                    </CancelButton>
+                </ButtonWrapper>
+            </Accordion>
+            <Accordion inputField={InputField.Employment}>
+                <Label htmlFor="employment">Employment Status</Label>
+                <StyledSelect
+                    id="employment"
+                    {...register(InputField.Employment)}
+                >
+                    <StyledOption value="Employed">Employed</StyledOption>
+                    <StyledOption value="Unemployed">Unemployed</StyledOption>
+                    <StyledOption value="Self-employed">
+                        Self-employed
+                    </StyledOption>
+                    <StyledOption value="Student">Student</StyledOption>
+                </StyledSelect>
+                {errors.employment && (
+                    <ErrorMessage>
+                        {errors.employment.message as string}
+                    </ErrorMessage>
+                )}
+
+                <ButtonWrapper>
+                    <SubmitButton
+                        type="submit"
+                        onClick={() => handleUpdate(InputField.Employment)}
+                    >
+                        Submit
+                    </SubmitButton>
+                    <CancelButton
+                        onClick={() => handleReset(InputField.Employment)}
                     >
                         Clear
                     </CancelButton>

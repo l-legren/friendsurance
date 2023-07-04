@@ -24,7 +24,6 @@ export const Input = styled.input`
     padding: 5px;
     margin-bottom: 10px;
     max-width: 200px;
-    /* margin-bottom: 2rem; */
     height: 30px;
     font-size: 1.25rem;
 `;
@@ -41,10 +40,23 @@ export const InputWrapper = styled.div`
     align-items: center;
 `;
 
-export const RadioLabel = styled.label`
+export const RadioCheckboxLabel = styled.label`
     margin: 0.5rem;
     font-weight: 300;
     font-size: 1.25rem;
+`;
+
+export const StyledSelect = styled.select`
+  padding: 10px;
+  font-size: 1.25rem;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  background-color: #fff;
+  color: #333;
+`;
+
+export const StyledOption = styled.option`
+  padding: 10px;
 `;
 
 export const SubmitButton = styled.button`
