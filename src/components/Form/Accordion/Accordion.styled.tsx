@@ -22,5 +22,6 @@ export const AngleUp = styled(FaAngleUp)`
     font-size: 2.25rem;
     cursor: pointer;
     margin-top: 2rem;
+    margin-right: 0.5rem;
 `;
 

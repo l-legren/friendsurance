@@ -200,7 +200,7 @@ export const FriendsuranceForm = () => {
                         type="checkbox"
                         id="health"
                         value="Health"
-                        {...register(InputField.Insurances)}
+                        {...register(InputField.Insurances, { required: true })}
                     />
                     <RadioCheckboxLabel htmlFor="health">
                         Health Insurance
@@ -211,7 +211,7 @@ export const FriendsuranceForm = () => {
                         type="checkbox"
                         id="car"
                         value="Car"
-                        {...register(InputField.Insurances)}
+                        {...register(InputField.Insurances, { required: true })}
                     />
                     <RadioCheckboxLabel htmlFor="car">
                         Car Insurance
@@ -222,7 +222,7 @@ export const FriendsuranceForm = () => {
                         type="checkbox"
                         id="liability"
                         value="Liability"
-                        {...register(InputField.Insurances)}
+                        {...register(InputField.Insurances, { required: true })}
                     />
                     <RadioCheckboxLabel htmlFor="liability">
                         Liability Insurance
@@ -233,7 +233,7 @@ export const FriendsuranceForm = () => {
                         type="checkbox"
                         id="second-car"
                         value="Second car"
-                        {...register(InputField.Insurances)}
+                        {...register(InputField.Insurances, { required: true })}
                     />
                     <RadioCheckboxLabel htmlFor="second-car">
                         Second Car Insurance
@@ -263,7 +263,7 @@ export const FriendsuranceForm = () => {
                 <Label htmlFor="employment">Employment Status</Label>
                 <StyledSelect
                     id="employment"
-                    {...register(InputField.Employment)}
+                    {...register(InputField.Employment, { required: true })}
                 >
                     <StyledOption value="Employed">Employed</StyledOption>
                     <StyledOption value="Unemployed">Unemployed</StyledOption>
