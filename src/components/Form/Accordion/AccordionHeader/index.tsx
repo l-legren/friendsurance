@@ -28,28 +28,31 @@ export const AccordionHeader = ({
     useEffect(() => {
         const headerSetter = () =>
             inputField === InputField.Name
-                ? setHeaderParameters({ title: "Name", answer: name })
+                ? setHeaderParameters({ title: "Name", answer: name.answer })
                 : inputField === InputField.Gender
-                ? setHeaderParameters({ title: "Gender", answer: gender })
+                ? setHeaderParameters({
+                      title: "Gender",
+                      answer: gender.answer,
+                  })
                 : inputField === InputField.Birth
                 ? setHeaderParameters({
                       title: "Birthdate",
-                      answer: birthdate,
+                      answer: birthdate.answer,
                   })
                 : inputField === InputField.Insurances
                 ? setHeaderParameters({
                       title: "Insurances",
-                      answer: insurances,
+                      answer: insurances.answer,
                   })
                 : inputField === InputField.Employment
                 ? setHeaderParameters({
                       title: "Employment",
-                      answer: employment,
+                      answer: employment.answer,
                   })
                 : inputField === InputField.PhoneNumber
                 ? setHeaderParameters({
                       title: "Phone Number",
-                      answer: number,
+                      answer: number.answer,
                   })
                 : null;
 
