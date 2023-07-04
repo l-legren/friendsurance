@@ -4,7 +4,6 @@ export const HeaderWrapper = styled.div<{ isExpanded: boolean }>`
     display: flex;
     justify-content: space-between;
     align-items: center;
-    border-top: 1px solid gray;
     cursor: pointer;
     max-height: ${({ isExpanded }) => (isExpanded ? "0px" : "100px")};
     overflow: hidden;

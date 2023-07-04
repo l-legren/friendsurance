@@ -105,3 +105,9 @@ export const ErrorMessage = styled.span`
     color: red;
     margin-bottom: 10px;
 `;
+
+export const Divider = styled.div`
+    height: 1px;
+    width: 100%;
+    background-color: gray;
+`;

@@ -14,6 +14,7 @@ import {
     FieldHeader,
     StyledSelect,
     StyledOption,
+    Divider,
 } from "./Form.styled";
 import { useForm } from "react-hook-form";
 import { useDispatch } from "react-redux";
@@ -97,6 +98,7 @@ export const FriendsuranceForm = () => {
 
     return (
         <FormContainer>
+            <Divider />
             <Accordion inputField={InputField.Name}>
                 <Label htmlFor="name">What is your name?</Label>
                 <Input
@@ -130,6 +132,7 @@ export const FriendsuranceForm = () => {
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
+            <Divider />
             <Accordion inputField={InputField.Gender}>
                 <FieldHeader>What is your gender?</FieldHeader>
                 <InputWrapper>
@@ -175,6 +178,7 @@ export const FriendsuranceForm = () => {
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
+            <Divider />
             <Accordion inputField={InputField.Birth}>
                 <Label htmlFor="name">When have you been born?</Label>
                 <Input
@@ -201,6 +205,7 @@ export const FriendsuranceForm = () => {
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
+            <Divider />
             <Accordion inputField={InputField.Insurances}>
                 <FieldHeader>How many insurances do you have?</FieldHeader>
                 <InputWrapper>
@@ -267,6 +272,7 @@ export const FriendsuranceForm = () => {
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
+            <Divider />
             <Accordion inputField={InputField.Employment}>
                 <Label htmlFor="employment">Employment Status</Label>
                 <StyledSelect
@@ -300,6 +306,7 @@ export const FriendsuranceForm = () => {
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
+            <Divider />
             <Accordion inputField={InputField.PhoneNumber}>
                 <Label htmlFor="number">Phone number</Label>
                 <Input
@@ -334,6 +341,7 @@ export const FriendsuranceForm = () => {
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
+            <Divider />
         </FormContainer>
     );
 };

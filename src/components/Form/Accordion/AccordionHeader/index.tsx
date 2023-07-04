@@ -18,9 +18,8 @@ export const AccordionHeader = ({
     isExpanded,
     inputField,
 }: AccordionHeaderProps) => {
-    const { name, gender, birthdate, insurances, employment, number } = useSelector(
-        ({ form }) => form
-    );
+    const { name, gender, birthdate, insurances, employment, number } =
+        useSelector(({ form }) => form);
     const [headerParameters, setHeaderParameters] = useState({
         title: "",
         answer: "",
@@ -58,16 +57,14 @@ export const AccordionHeader = ({
     }, [headerParameters]);
 
     return (
-        <>
-            <HeaderWrapper isExpanded={isExpanded}>
-                <Title>{headerParameters.title}</Title>
-                <Answer>
-                    {Array.isArray(headerParameters.answer)
-                        ? formatArrayToString(headerParameters.answer)
-                        : headerParameters.answer}
-                </Answer>
-                <Marker />
-            </HeaderWrapper>
-        </>
+        <HeaderWrapper isExpanded={isExpanded}>
+            <Title>{headerParameters.title}</Title>
+            <Answer>
+                {Array.isArray(headerParameters.answer)
+                    ? formatArrayToString(headerParameters.answer)
+                    : headerParameters.answer}
+            </Answer>
+            <Marker />
+        </HeaderWrapper>
     );
 };
