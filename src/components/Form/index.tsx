@@ -8,8 +8,8 @@ import {
     SubmitButton,
     CancelButton,
     ButtonWrapper,
-    RadioWrapper,
-    RadioInput,
+    InputWrapper,
+    RadioCheckboxInput,
     RadioLabel,
     FieldHeader,
 } from "./Form.styled";
@@ -22,6 +22,8 @@ import {
     resetGender,
     updateBirthdate,
     resetBirthdate,
+    updateInsurances,
+    resetInsurances,
 } from "../../features/form/formSlice";
 
 export enum InputField {
@@ -53,6 +55,9 @@ export const FriendsuranceForm = () => {
         } else if (field === InputField.Birth) {
             const birthdate = getValues(InputField.Birth);
             dispatch(updateBirthdate(birthdate));
+        } else if (field === InputField.Insurances) {
+            const insurances = getValues(InputField.Insurances);
+            dispatch(updateInsurances(insurances));
         }
     };
 
@@ -66,6 +71,9 @@ export const FriendsuranceForm = () => {
         } else if (field === InputField.Birth) {
             setValue(InputField.Birth, "");
             dispatch(resetBirthdate());
+        } else if (field === InputField.Insurances) {
+            setValue(InputField.Insurances, []);
+            dispatch(resetInsurances());
         }
     };
 
@@ -106,28 +114,28 @@ export const FriendsuranceForm = () => {
             </Accordion>
             <Accordion inputField={InputField.Gender}>
                 <FieldHeader>What is your gender?</FieldHeader>
-                <RadioWrapper>
-                    <RadioInput
+                <InputWrapper>
+                    <RadioCheckboxInput
                         type="radio"
                         id="gender"
-                        value="FEMALE"
+                        value="Female"
                         {...register("gender", {
                             required: "Please select one value",
                         })}
                     />
-                    <RadioLabel htmlFor="MALE">Female</RadioLabel>
-                </RadioWrapper>
-                <RadioWrapper>
-                    <RadioInput
+                    <RadioLabel htmlFor="Male">Female</RadioLabel>
+                </InputWrapper>
+                <InputWrapper>
+                    <RadioCheckboxInput
                         type="radio"
                         id="gender"
-                        value="MALE"
+                        value="Male"
                         {...register("gender", {
                             required: "Please select one value",
                         })}
                     />
-                    <RadioLabel htmlFor="MALE">Male</RadioLabel>
-                </RadioWrapper>
+                    <RadioLabel htmlFor="Male">Male</RadioLabel>
+                </InputWrapper>
                 {errors.gender && (
                     <ErrorMessage>
                         {errors.gender.message as string}
@@ -151,14 +159,14 @@ export const FriendsuranceForm = () => {
                 <Label htmlFor="name">When have you been born?</Label>
                 <Input
                     type="date"
-                    id="birthDate"
-                    {...register("birthDate", {
+                    id="birthdate"
+                    {...register("birthdate", {
                         required: "Please pick your birthdate",
                     })}
                 />
-                {errors.birthDate && (
+                {errors.birthdate && (
                     <ErrorMessage>
-                        {errors.birthDate.message as string}
+                        {errors.birthdate.message as string}
                     </ErrorMessage>
                 )}
                 <ButtonWrapper>
@@ -169,6 +177,64 @@ export const FriendsuranceForm = () => {
                         Submit
                     </SubmitButton>
                     <CancelButton onClick={() => handleReset(InputField.Birth)}>
+                        Clear
+                    </CancelButton>
+                </ButtonWrapper>
+            </Accordion>
+            <Accordion inputField={InputField.Insurances}>
+                <FieldHeader>How many insurances do you have?</FieldHeader>
+                <InputWrapper>
+                    <RadioCheckboxInput
+                        type="checkbox"
+                        id="health"
+                        value="Health"
+                        {...register(InputField.Insurances)}
+                    />
+                    <Label htmlFor="health">Health Insurance</Label>
+                </InputWrapper>
+                <InputWrapper>
+                    <RadioCheckboxInput
+                        type="checkbox"
+                        id="car"
+                        value="Car"
+                        {...register(InputField.Insurances)}
+                    />
+                    <Label htmlFor="car">Car Insurance</Label>
+                </InputWrapper>
+                <InputWrapper>
+                    <RadioCheckboxInput
+                        type="checkbox"
+                        id="liability"
+                        value='Liability'
+                        {...register(InputField.Insurances)}
+                    />
+                    <Label htmlFor="liability">Liability Insurance</Label>
+                </InputWrapper>
+                <InputWrapper>
+                    <RadioCheckboxInput
+                        type="checkbox"
+                        id="second-car"
+                        value='Second car'
+                        {...register(InputField.Insurances)}
+                    />
+                    <Label htmlFor="second-car">Second Car Insurance</Label>
+                </InputWrapper>
+
+                {errors.insurances && (
+                    <ErrorMessage>
+                        {errors.insurances.message as string}
+                    </ErrorMessage>
+                )}
+                <ButtonWrapper>
+                    <SubmitButton
+                        type="submit"
+                        onClick={() => handleUpdate(InputField.Insurances)}
+                    >
+                        Submit
+                    </SubmitButton>
+                    <CancelButton
+                        onClick={() => handleReset(InputField.Insurances)}
+                    >
                         Clear
                     </CancelButton>
                 </ButtonWrapper>

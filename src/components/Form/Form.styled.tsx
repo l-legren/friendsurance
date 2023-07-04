@@ -29,13 +29,14 @@ export const Input = styled.input`
     font-size: 1.25rem;
 `;
 
-export const RadioInput = styled.input`
+export const RadioCheckboxInput = styled.input`
     width: 20px;
     height: 20px;
     margin-right: 8px;
+    cursor: pointer;
 `;
 
-export const RadioWrapper = styled.div`
+export const InputWrapper = styled.div`
     display: flex;
     align-items: center;
 `;
