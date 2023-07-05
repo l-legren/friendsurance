@@ -20,6 +20,7 @@ export const AccordionHeader = ({
 }: AccordionHeaderProps) => {
     const { name, gender, birthdate, insurances, employment, number } =
         useSelector(({ form }) => form.fields);
+    const allAnswered = useSelector(({ form }) => form.allAnswered);
     const [headerParameters, setHeaderParameters] = useState<HeaderState>({
         title: "",
         answer: "",
@@ -67,7 +68,10 @@ export const AccordionHeader = ({
                     ? formatArrayToString(headerParameters.answer)
                     : headerParameters.answer}
             </Answer>
-            <Marker />
+            <Marker
+                hasAnswer={headerParameters.answer ? true : false}
+                allAnswered={allAnswered}
+            />
         </HeaderWrapper>
     );
 };

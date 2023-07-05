@@ -10,6 +10,7 @@ interface StateProps {
         [key: string]: Section;
     };
     lastOpened: string;
+    allAnswered: boolean;
 }
 
 const initialState: StateProps = {
@@ -40,6 +41,7 @@ const initialState: StateProps = {
         },
     },
     lastOpened: "",
+    allAnswered: false,
 };
 
 const formSlice: Slice = createSlice({
@@ -108,6 +110,20 @@ const formSlice: Slice = createSlice({
                 }
             }
         },
+        allFieldsAnswered: (state: StateProps) => {
+            const { fields } = state;
+            let count = 0;
+            for (const key in fields) {
+                if (fields[key].answer) {
+                    count++;
+                }
+            }
+            if (count >= 6) {
+                state.allAnswered = true;
+            } else {
+                state.allAnswered = false;
+            }
+        }
     },
 });
 
@@ -117,5 +133,6 @@ export const {
     expandCollapseNext,
     closeExpandedButSelected,
     setLastOpened,
+    allFieldsAnswered,
 } = formSlice.actions;
 export default formSlice.reducer;

@@ -24,6 +24,7 @@ import {
     closeExpandedButSelected,
     resetField,
     setLastOpened,
+    allFieldsAnswered,
 } from "../../features/form/formSlice";
 
 export enum InputField {
@@ -68,6 +69,7 @@ export const FriendsuranceForm = () => {
             dispatch(updateField({ field, input: number }));
         }
         dispatch(setLastOpened(null));
+        dispatch(allFieldsAnswered(null));
         dispatch(expandCollapseNext(field));
     };
 
