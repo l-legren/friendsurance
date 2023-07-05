@@ -1,22 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { AccordionHeader } from "./AccordionHeader";
 
 import {
     AccordionContent,
     AccordionWrapper,
     ClickableHeader,
-    ContentContainer,
-    AngleUp,
 } from "./Accordion.styled";
 import { InputField } from "..";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    expandCollapseBirthdate,
-    expandCollapseInsurances,
-    expandCollapseName,
-    expandCollapseNumber,
-    expandCollapseGender,
-    expandCollapseEmployment,
+
+    closeRestExpanded,
 } from "../../../features/form/formSlice";
 
 interface AccordionProps {
@@ -25,25 +19,26 @@ interface AccordionProps {
 }
 
 export const Accordion = ({ children, inputField }: AccordionProps) => {
-    const [isExpanded, setIsExpanded] = useState<boolean>(false);
+    // const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const { name, gender, birthdate, employment, insurances, number } =
         useSelector(({ form }) => form);
     const dispatch = useDispatch();
 
     const handleClick = (inputField: InputField): void => {
         if (inputField === InputField.Name)
-            dispatch(expandCollapseName(!isExpanded));
+            name.answer && dispatch(closeRestExpanded(inputField));
         if (inputField === InputField.Gender)
-            dispatch(expandCollapseGender(!isExpanded));
+            gender.answer && dispatch(closeRestExpanded(inputField));
         if (inputField === InputField.Birth)
-            dispatch(expandCollapseBirthdate(!isExpanded));
+            birthdate.answer && dispatch(closeRestExpanded(inputField));
         if (inputField === InputField.Insurances)
-            dispatch(expandCollapseInsurances(!isExpanded));
+            insurances.answer.length > 0 &&
+                dispatch(closeRestExpanded(inputField));
         if (inputField === InputField.Employment)
-            dispatch(expandCollapseEmployment(!isExpanded));
+            employment.answer && dispatch(closeRestExpanded(inputField));
         if (inputField === InputField.PhoneNumber)
-            dispatch(expandCollapseNumber(!isExpanded));
-        setIsExpanded(!isExpanded);
+            number.answer && dispatch(closeRestExpanded(inputField));
+        // setIsExpanded(!isExpanded);
     };
 
     const handleExpansion = (inputField: InputField): boolean => {
@@ -66,18 +61,18 @@ export const Accordion = ({ children, inputField }: AccordionProps) => {
         <AccordionWrapper>
             <ClickableHeader onClick={() => handleClick(inputField)}>
                 <AccordionHeader
-                    isExpanded={isExpanded}
+                    isExpanded={handleExpansion(inputField)}
                     inputField={inputField}
                 />
             </ClickableHeader>
-            <ContentContainer>
-                <AccordionContent isExpanded={handleExpansion(inputField)}>
-                    {children}
-                </AccordionContent>
-                {handleExpansion(inputField) && (
+            {/* <ContentContainer> */}
+            <AccordionContent isExpanded={handleExpansion(inputField)}>
+                {children}
+            </AccordionContent>
+            {/* {handleExpansion(inputField) && (
                     <AngleUp onClick={() => handleClick(inputField)} />
                 )}
-            </ContentContainer>
+            </ContentContainer> */}
         </AccordionWrapper>
     );
 };

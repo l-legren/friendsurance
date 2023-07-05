@@ -57,7 +57,7 @@ export const AccordionHeader = ({
                 : null;
 
         headerSetter();
-    }, []);
+    }, [isExpanded]);
 
     return (
         <HeaderWrapper isExpanded={isExpanded}>

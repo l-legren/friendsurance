@@ -1,30 +1,12 @@
 import { createSlice } from "@reduxjs/toolkit";
 
+interface Section {
+    answer: string | string[] | undefined;
+    isExpanded: boolean;
+}
+
 interface StateProps {
-    name: {
-        answer: string;
-        isExpanded: boolean;
-    };
-    gender: {
-        answer: string;
-        isExpanded: boolean;
-    };
-    birthdate: {
-        answer: string;
-        isExpanded: boolean;
-    };
-    insurances: {
-        answer: string[];
-        isExpanded: boolean;
-    };
-    employment: {
-        answer: string;
-        isExpanded: boolean;
-    };
-    number: {
-        answer: string;
-        isExpanded: boolean;
-    };
+    [key: string]: Section;
 }
 
 const initialState: StateProps = {
@@ -33,7 +15,7 @@ const initialState: StateProps = {
         isExpanded: true,
     },
     gender: {
-        answer: "",
+        answer: undefined,
         isExpanded: false,
     },
     birthdate: {
@@ -41,7 +23,7 @@ const initialState: StateProps = {
         isExpanded: false,
     },
     insurances: {
-        answer: [],
+        answer: undefined,
         isExpanded: false,
     },
     employment: {
@@ -64,11 +46,30 @@ const formSlice = createSlice({
         resetName: (state: StateProps) => {
             state.name.answer = initialState.name.answer;
         },
-        expandCollapseName: (
-            state: StateProps,
-            action: { payload: boolean }
-        ) => {
-            state.name.isExpanded = action.payload;
+        expandCollapseNext: (state, action) => {
+            const keys = Object.keys(state);
+            const targetKey = action.payload;
+
+            const targetIndex = keys.findIndex((key) => key === targetKey);
+            if (targetIndex !== -1) {
+                state[keys[targetIndex]].isExpanded = false;
+
+                for (let i = targetIndex + 1; i < keys.length; i++) {
+                    const currentKey = keys[i];
+                    state[currentKey].isExpanded = false;
+                }
+
+                for (let i = targetIndex + 1; i < keys.length; i++) {
+                    const currentKey = keys[i];
+                    if (
+                        !state[currentKey].answer &&
+                        !state[currentKey].isExpanded
+                    ) {
+                        state[currentKey].isExpanded = true;
+                        break;
+                    }
+                }
+            }
         },
         updateGender: (state: StateProps, action: { payload: string }) => {
             state.gender.answer = action.payload;
@@ -76,24 +77,13 @@ const formSlice = createSlice({
         resetGender: (state: StateProps) => {
             state.gender = initialState.gender;
         },
-        expandCollapseGender: (
-            state: StateProps,
-            action: { payload: boolean }
-        ) => {
-            state.gender.isExpanded = action.payload;
-        },
         updateBirthdate: (state: StateProps, action: { payload: string }) => {
             state.birthdate.answer = action.payload;
         },
         resetBirthdate: (state: StateProps) => {
             state.birthdate = initialState.birthdate;
         },
-        expandCollapseBirthdate: (
-            state: StateProps,
-            action: { payload: boolean }
-        ) => {
-            state.birthdate.isExpanded = action.payload;
-        },
+
         updateInsurances: (
             state: StateProps,
             action: { payload: string[] }
@@ -103,23 +93,11 @@ const formSlice = createSlice({
         resetInsurances: (state: StateProps) => {
             state.insurances = initialState.insurances;
         },
-        expandCollapseInsurances: (
-            state: StateProps,
-            action: { payload: boolean }
-        ) => {
-            state.insurances.isExpanded = action.payload;
-        },
         updateEmployment: (state: StateProps, action: { payload: string }) => {
             state.employment.answer = action.payload;
         },
         resetEmployment: (state: StateProps) => {
             state.employment = initialState.employment;
-        },
-        expandCollapseEmployment: (
-            state: StateProps,
-            action: { payload: boolean }
-        ) => {
-            state.employment.isExpanded = action.payload;
         },
         updateNumber: (state: StateProps, action: { payload: string }) => {
             state.number.answer = action.payload;
@@ -127,11 +105,21 @@ const formSlice = createSlice({
         resetNumber: (state: StateProps) => {
             state.number = initialState.number;
         },
-        expandCollapseNumber: (
-            state: StateProps,
-            action: { payload: boolean }
-        ) => {
-            state.number.isExpanded = action.payload;
+        closeRestExpanded: (state: StateProps, action: { payload: string }) => {
+            const keys = Object.keys(state) as string[];
+            keys.forEach((key: string) => {
+                if (key !== action.payload) {
+                    state[key].isExpanded = false;
+                } else {
+                    state[key].isExpanded = true;
+                }
+            });
+        },
+        closeAllExpanded: (state: StateProps) => {
+            const keys = Object.keys(state) as string[];
+            keys.forEach((key: string) => {
+                state[key].isExpanded = false;
+            });
         },
     },
 });
@@ -149,11 +137,45 @@ export const {
     resetEmployment,
     updateNumber,
     resetNumber,
-    expandCollapseName,
-    expandCollapseGender,
-    expandCollapseBirthdate,
-    expandCollapseInsurances,
-    expandCollapseEmployment,
-    expandCollapseNumber,
+    closeRestExpanded,
+    closeAllExpanded,
+    expandCollapseNext,
 } = formSlice.actions;
 export default formSlice.reducer;
+
+// expandCollapseInsurances: (
+//     state: StateProps,
+//     action: { payload: boolean }
+// ) => {
+//     state.insurances.isExpanded = action.payload;
+// },
+// expandCollapseName: (
+//     state: StateProps,
+//     action: { payload: boolean }
+// ) => {
+//     state.name.isExpanded = action.payload;
+// },
+//         expandCollapseNumber: (
+//     state: StateProps,
+//     action: { payload: boolean }
+// ) => {
+//     state.number.isExpanded = action.payload;
+// },
+// expandCollapseEmployment: (
+//     state: StateProps,
+//     action: { payload: boolean }
+// ) => {
+//     state.employment.isExpanded = action.payload;
+// },
+// expandCollapseGender: (
+//     state: StateProps,
+//     action: { payload: boolean }
+// ) => {
+//     state.gender.isExpanded = action.payload;
+// },
+// expandCollapseBirthdate: (
+//     state: StateProps,
+//     action: { payload: boolean }
+// ) => {
+//     state.birthdate.isExpanded = action.payload;
+// },

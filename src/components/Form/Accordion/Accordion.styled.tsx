@@ -13,17 +13,19 @@ export const AccordionContent = styled.div<{ isExpanded: boolean }>`
     left: 0.75rem;
 `;
 
-export const ClickableHeader = styled.div``;
-
-export const ContentContainer = styled.div`
-    display: flex;
-    justify-content: space-between;
-`;
-
-export const AngleUp = styled(FaAngleUp)`
-    font-size: 2.25rem;
+export const ClickableHeader = styled.div`
     cursor: pointer;
-    margin-top: 2rem;
-    margin-right: 0.5rem;
 `;
+
+// export const ContentContainer = styled.div`
+//     display: flex;
+//     justify-content: space-between;
+// `;
+
+// export const AngleUp = styled(FaAngleUp)`
+//     font-size: 2.25rem;
+//     cursor: pointer;
+//     margin-top: 2rem;
+//     margin-right: 0.5rem;
+// `;
 

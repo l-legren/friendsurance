@@ -31,12 +31,8 @@ import {
     resetEmployment,
     updateNumber,
     resetNumber,
-    expandCollapseName,
-    expandCollapseGender,
-    expandCollapseInsurances,
-    expandCollapseBirthdate,
-    expandCollapseEmployment,
-    expandCollapseNumber,
+    expandCollapseNext,
+    closeAllExpanded,
 } from "../../features/form/formSlice";
 
 export enum InputField {
@@ -61,33 +57,24 @@ export const FriendsuranceForm = () => {
         if (field === InputField.Name) {
             const name = getValues(InputField.Name);
             dispatch(updateName(name));
-            dispatch(expandCollapseName(false));
-            dispatch(expandCollapseGender(true));
         } else if (field === InputField.Gender) {
             const gender = getValues(InputField.Gender);
             dispatch(updateGender(gender));
-            dispatch(expandCollapseGender(false));
-            dispatch(expandCollapseBirthdate(true));
         } else if (field === InputField.Birth) {
             const birthdate = getValues(InputField.Birth);
             dispatch(updateBirthdate(birthdate));
-            dispatch(expandCollapseBirthdate(false));
-            dispatch(expandCollapseInsurances(true));
         } else if (field === InputField.Insurances) {
             const insurances = getValues(InputField.Insurances);
             dispatch(updateInsurances(insurances));
-            dispatch(expandCollapseInsurances(false));
-            dispatch(expandCollapseEmployment(true));
         } else if (field === InputField.Employment) {
             const employment = getValues(InputField.Employment);
             dispatch(updateEmployment(employment));
-            dispatch(expandCollapseEmployment(false));
-            dispatch(expandCollapseNumber(true));
         } else if (field === InputField.PhoneNumber) {
             const number = getValues(InputField.PhoneNumber);
             dispatch(updateNumber(number));
-            dispatch(expandCollapseNumber(false));
+            dispatch(closeAllExpanded());
         }
+        dispatch(expandCollapseNext(field));
     };
 
     const handleReset = (field: InputField) => {
