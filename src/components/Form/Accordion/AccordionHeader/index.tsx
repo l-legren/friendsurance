@@ -19,7 +19,7 @@ export const AccordionHeader = ({
     inputField,
 }: AccordionHeaderProps) => {
     const { name, gender, birthdate, insurances, employment, number } =
-        useSelector(({ form }) => form);
+        useSelector(({ form }) => form.fields);
     const [headerParameters, setHeaderParameters] = useState<HeaderState>({
         title: "",
         answer: "",

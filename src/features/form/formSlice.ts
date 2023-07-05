@@ -1,4 +1,4 @@
-import { createSlice } from "@reduxjs/toolkit";
+import { Slice, createSlice } from "@reduxjs/toolkit";
 
 interface Section {
     answer: string | string[] | undefined;
@@ -6,134 +6,116 @@ interface Section {
 }
 
 interface StateProps {
-    [key: string]: Section;
+    fields: {
+        [key: string]: Section;
+    };
+    lastOpened: string;
 }
 
 const initialState: StateProps = {
-    name: {
-        answer: "",
-        isExpanded: true,
+    fields: {
+        name: {
+            answer: "",
+            isExpanded: true,
+        },
+        gender: {
+            answer: undefined,
+            isExpanded: false,
+        },
+        birthdate: {
+            answer: "",
+            isExpanded: false,
+        },
+        insurances: {
+            answer: undefined,
+            isExpanded: false,
+        },
+        employment: {
+            answer: "",
+            isExpanded: false,
+        },
+        number: {
+            answer: "",
+            isExpanded: false,
+        },
     },
-    gender: {
-        answer: undefined,
-        isExpanded: false,
-    },
-    birthdate: {
-        answer: "",
-        isExpanded: false,
-    },
-    insurances: {
-        answer: undefined,
-        isExpanded: false,
-    },
-    employment: {
-        answer: "",
-        isExpanded: false,
-    },
-    number: {
-        answer: "",
-        isExpanded: false,
-    },
+    lastOpened: "",
 };
 
-const formSlice = createSlice({
+const formSlice: Slice = createSlice({
     name: "form",
     initialState,
     reducers: {
-        updateName: (state: StateProps, action) => {
-            state.name.answer = action.payload;
+        updateField: (
+            state: StateProps,
+            action: { payload: { field: string; input: string | string[] } }
+        ) => {
+            const { field, input } = action.payload;
+            state.fields[field].answer = input;
         },
-        resetName: (state: StateProps) => {
-            state.name.answer = initialState.name.answer;
-        },
-        expandCollapseNext: (state, action) => {
-            const keys = Object.keys(state);
+        expandCollapseNext: (
+            state: StateProps,
+            action: { payload: string }
+        ) => {
+            const { fields } = state;
+            const keys = Object.keys(fields);
             const targetKey = action.payload;
 
             const targetIndex = keys.findIndex((key) => key === targetKey);
-            if (targetIndex !== -1) {
-                state[keys[targetIndex]].isExpanded = false;
+            if (targetIndex <= keys.length) {
+                fields[keys[targetIndex]].isExpanded = false;
 
                 for (let i = targetIndex + 1; i < keys.length; i++) {
                     const currentKey = keys[i];
-                    state[currentKey].isExpanded = false;
+                    fields[currentKey].isExpanded = false;
                 }
 
                 for (let i = targetIndex + 1; i < keys.length; i++) {
                     const currentKey = keys[i];
                     if (
-                        !state[currentKey].answer &&
-                        !state[currentKey].isExpanded
+                        !fields[currentKey].answer &&
+                        !fields[currentKey].isExpanded
                     ) {
-                        state[currentKey].isExpanded = true;
+                        fields[currentKey].isExpanded = true;
                         break;
                     }
                 }
-            } else {
-                state.number.isExpanded = false;
             }
         },
-        updateGender: (state: StateProps, action: { payload: string }) => {
-            state.gender.answer = action.payload;
+        resetField: (state: StateProps, action: { payload: string }) => {
+            state.fields[action.payload].answer =
+                initialState.fields[action.payload].answer;
         },
-        resetGender: (state: StateProps) => {
-            state.gender = initialState.gender;
-        },
-        updateBirthdate: (state: StateProps, action: { payload: string }) => {
-            state.birthdate.answer = action.payload;
-        },
-        resetBirthdate: (state: StateProps) => {
-            state.birthdate = initialState.birthdate;
-        },
-
-        updateInsurances: (
+        closeExpandedButSelected: (
             state: StateProps,
-            action: { payload: string[] }
+            action: { payload: string }
         ) => {
-            state.insurances.answer = action.payload;
-        },
-        resetInsurances: (state: StateProps) => {
-            state.insurances = initialState.insurances;
-        },
-        updateEmployment: (state: StateProps, action: { payload: string }) => {
-            state.employment.answer = action.payload;
-        },
-        resetEmployment: (state: StateProps) => {
-            state.employment = initialState.employment;
-        },
-        updateNumber: (state: StateProps, action: { payload: string }) => {
-            state.number.answer = action.payload;
-        },
-        resetNumber: (state: StateProps) => {
-            state.number = initialState.number;
-        },
-        closeRestExpanded: (state: StateProps, action: { payload: string }) => {
-            const keys = Object.keys(state) as string[];
+            const { fields } = state;
+            const keys = Object.keys(fields) as string[];
             keys.forEach((key: string) => {
                 if (key !== action.payload) {
-                    state[key].isExpanded = false;
+                    fields[key].isExpanded = false;
                 } else {
-                    state[key].isExpanded = true;
+                    fields[key].isExpanded = true;
                 }
             });
-        }
+        },
+        setLastOpened: (state: StateProps) => {
+            const { fields } = state;
+            for (const key in fields) {
+                if (fields[key].isExpanded === true) {
+                    state.lastOpened = key;
+                }
+            }
+        },
     },
 });
 
 export const {
-    updateName,
-    resetName,
-    updateGender,
-    resetGender,
-    updateBirthdate,
-    resetBirthdate,
-    updateInsurances,
-    resetInsurances,
-    updateEmployment,
-    resetEmployment,
-    updateNumber,
-    resetNumber,
-    closeRestExpanded,
+    updateField,
+    resetField,
     expandCollapseNext,
+    closeExpandedButSelected,
+    setLastOpened,
 } = formSlice.actions;
 export default formSlice.reducer;

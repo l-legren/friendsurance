@@ -8,7 +8,10 @@ import {
 } from "./Accordion.styled";
 import { InputField } from "..";
 import { useDispatch, useSelector } from "react-redux";
-import { closeRestExpanded } from "../../../features/form/formSlice";
+import {
+    closeExpandedButSelected,
+    setLastOpened,
+} from "../../../features/form/formSlice";
 
 interface AccordionProps {
     children: React.ReactNode;
@@ -17,23 +20,24 @@ interface AccordionProps {
 
 export const Accordion = ({ children, inputField }: AccordionProps) => {
     const { name, gender, birthdate, employment, insurances, number } =
-        useSelector(({ form }) => form);
+        useSelector(({ form }) => form.fields);
     const dispatch = useDispatch();
 
     const handleClick = (inputField: InputField): void => {
+        dispatch(setLastOpened(null));
         if (inputField === InputField.Name)
-            name.answer && dispatch(closeRestExpanded(inputField));
+            name.answer && dispatch(closeExpandedButSelected(inputField));
         if (inputField === InputField.Gender)
-            gender.answer && dispatch(closeRestExpanded(inputField));
+            gender.answer && dispatch(closeExpandedButSelected(inputField));
         if (inputField === InputField.Birth)
-            birthdate.answer && dispatch(closeRestExpanded(inputField));
+            birthdate.answer && dispatch(closeExpandedButSelected(inputField));
         if (inputField === InputField.Insurances)
             insurances.answer.length > 0 &&
-                dispatch(closeRestExpanded(inputField));
+                dispatch(closeExpandedButSelected(inputField));
         if (inputField === InputField.Employment)
-            employment.answer && dispatch(closeRestExpanded(inputField));
+            employment.answer && dispatch(closeExpandedButSelected(inputField));
         if (inputField === InputField.PhoneNumber)
-            number.answer && dispatch(closeRestExpanded(inputField));
+            number.answer && dispatch(closeExpandedButSelected(inputField));
     };
 
     const handleExpansion = (inputField: InputField): boolean => {

@@ -19,19 +19,11 @@ import {
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
 import {
-    updateName,
-    resetName,
-    updateGender,
-    resetGender,
-    updateBirthdate,
-    resetBirthdate,
-    updateInsurances,
-    resetInsurances,
-    updateEmployment,
-    resetEmployment,
-    updateNumber,
-    resetNumber,
+    updateField,
     expandCollapseNext,
+    closeExpandedButSelected,
+    resetField,
+    setLastOpened,
 } from "../../features/form/formSlice";
 
 export enum InputField {
@@ -40,7 +32,7 @@ export enum InputField {
     Birth = "birthdate",
     Insurances = "insurances",
     Employment = "employment",
-    PhoneNumber = "phoneNumber",
+    PhoneNumber = "number",
 }
 
 export const FriendsuranceForm = () => {
@@ -51,51 +43,52 @@ export const FriendsuranceForm = () => {
         formState: { errors },
     } = useForm();
     const { name, gender, employment, birthdate, insurances, number } =
-        useSelector(({ form }) => form);
+        useSelector(({ form }) => form.fields);
+    const lastOpened = useSelector(({ form }) => form.lastOpened);
     const dispatch = useDispatch();
 
     const handleUpdate = (field: InputField) => {
         if (field === InputField.Name) {
             const name = getValues(InputField.Name);
-            dispatch(updateName(name));
+            dispatch(updateField({ field, input: name }));
         } else if (field === InputField.Gender) {
             const gender = getValues(InputField.Gender);
-            dispatch(updateGender(gender));
+            dispatch(updateField({ field, input: gender }));
         } else if (field === InputField.Birth) {
             const birthdate = getValues(InputField.Birth);
-            dispatch(updateBirthdate(birthdate));
+            dispatch(updateField({ field, input: birthdate }));
         } else if (field === InputField.Insurances) {
             const insurances = getValues(InputField.Insurances);
-            dispatch(updateInsurances(insurances));
+            dispatch(updateField({ field, input: insurances }));
         } else if (field === InputField.Employment) {
             const employment = getValues(InputField.Employment);
-            dispatch(updateEmployment(employment));
+            dispatch(updateField({ field, input: employment }));
         } else if (field === InputField.PhoneNumber) {
             const number = getValues(InputField.PhoneNumber);
-            dispatch(updateNumber(number));
+            dispatch(updateField({ field, input: number }));
         }
+        dispatch(setLastOpened(null));
         dispatch(expandCollapseNext(field));
     };
 
-    const handleReset = (field: InputField) => {
+    const handleReset = (field: InputField, canceling: boolean) => {
         if (field === InputField.Name) {
             setValue(InputField.Name, "");
-            dispatch(resetName());
         } else if (field === InputField.Gender) {
             setValue(InputField.Gender, "");
-            dispatch(resetGender());
         } else if (field === InputField.Birth) {
             setValue(InputField.Birth, "");
-            dispatch(resetBirthdate());
         } else if (field === InputField.Insurances) {
             setValue(InputField.Insurances, []);
-            dispatch(resetInsurances());
         } else if (field === InputField.Employment) {
             setValue(InputField.Employment, "");
-            dispatch(resetEmployment());
         } else if (field === InputField.PhoneNumber) {
             setValue(InputField.PhoneNumber, "");
-            dispatch(resetNumber());
+        }
+        dispatch(resetField(field));
+
+        if (canceling) {
+            dispatch(closeExpandedButSelected(lastOpened));
         }
     };
 
@@ -131,8 +124,12 @@ export const FriendsuranceForm = () => {
                     >
                         {name.answer ? "Edit" : "Submit"}
                     </SubmitButton>
-                    <CancelButton onClick={() => handleReset(InputField.Name)}>
-                        Clear
+                    <CancelButton
+                        onClick={() =>
+                            handleReset(InputField.Name, name.answer)
+                        }
+                    >
+                        {name.answer ? "Cancel" : "Clear"}
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
@@ -176,9 +173,11 @@ export const FriendsuranceForm = () => {
                         {gender.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton
-                        onClick={() => handleReset(InputField.Gender)}
+                        onClick={() =>
+                            handleReset(InputField.Gender, gender.answer)
+                        }
                     >
-                        Clear
+                        {gender.answer ? "Cancel" : "Clear"}
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
@@ -205,8 +204,12 @@ export const FriendsuranceForm = () => {
                     >
                         {birthdate.answer ? "Edit" : "Submit"}
                     </SubmitButton>
-                    <CancelButton onClick={() => handleReset(InputField.Birth)}>
-                        Clear
+                    <CancelButton
+                        onClick={() =>
+                            handleReset(InputField.Birth, birthdate.answer)
+                        }
+                    >
+                        {birthdate.answer ? "Cancel" : "Clear"}
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
@@ -271,9 +274,14 @@ export const FriendsuranceForm = () => {
                         {insurances.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton
-                        onClick={() => handleReset(InputField.Insurances)}
+                        onClick={() =>
+                            handleReset(
+                                InputField.Insurances,
+                                insurances.answer
+                            )
+                        }
                     >
-                        Clear
+                        {insurances.answer ? "Cancel" : "Clear"}
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
@@ -305,20 +313,25 @@ export const FriendsuranceForm = () => {
                         {employment.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton
-                        onClick={() => handleReset(InputField.Employment)}
+                        onClick={() =>
+                            handleReset(
+                                InputField.Employment,
+                                employment.answer
+                            )
+                        }
                     >
-                        Clear
+                        {employment.answer ? "Cancel" : "Clear"}
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
             <Divider />
             <Accordion inputField={InputField.PhoneNumber}>
-                <Label htmlFor="phoneNumber">Phone number</Label>
+                <Label htmlFor="number">Phone number</Label>
                 <Input
                     type="text"
-                    id="phoneNumber"
+                    id="number"
                     defaultValue={number.answer}
-                    {...register("phoneNumber", {
+                    {...register("number", {
                         required: "Phone number is required",
                         pattern: {
                             value: /^\d{7,12}$/,
@@ -327,9 +340,9 @@ export const FriendsuranceForm = () => {
                         },
                     })}
                 />
-                {errors.phoneNumber && (
+                {errors.number && (
                     <ErrorMessage>
-                        {errors.phoneNumber.message as string}
+                        {errors.number.message as string}
                     </ErrorMessage>
                 )}
 
@@ -341,9 +354,11 @@ export const FriendsuranceForm = () => {
                         {number.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton
-                        onClick={() => handleReset(InputField.PhoneNumber)}
+                        onClick={() =>
+                            handleReset(InputField.PhoneNumber, number.answer)
+                        }
                     >
-                        Clear
+                        {number.answer ? "Cancel" : "Clear"}
                     </CancelButton>
                 </ButtonWrapper>
             </Accordion>
