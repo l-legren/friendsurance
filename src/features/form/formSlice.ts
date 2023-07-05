@@ -69,6 +69,8 @@ const formSlice = createSlice({
                         break;
                     }
                 }
+            } else {
+                state.number.isExpanded = false;
             }
         },
         updateGender: (state: StateProps, action: { payload: string }) => {
@@ -114,13 +116,7 @@ const formSlice = createSlice({
                     state[key].isExpanded = true;
                 }
             });
-        },
-        closeAllExpanded: (state: StateProps) => {
-            const keys = Object.keys(state) as string[];
-            keys.forEach((key: string) => {
-                state[key].isExpanded = false;
-            });
-        },
+        }
     },
 });
 
@@ -138,44 +134,6 @@ export const {
     updateNumber,
     resetNumber,
     closeRestExpanded,
-    closeAllExpanded,
     expandCollapseNext,
 } = formSlice.actions;
 export default formSlice.reducer;
-
-// expandCollapseInsurances: (
-//     state: StateProps,
-//     action: { payload: boolean }
-// ) => {
-//     state.insurances.isExpanded = action.payload;
-// },
-// expandCollapseName: (
-//     state: StateProps,
-//     action: { payload: boolean }
-// ) => {
-//     state.name.isExpanded = action.payload;
-// },
-//         expandCollapseNumber: (
-//     state: StateProps,
-//     action: { payload: boolean }
-// ) => {
-//     state.number.isExpanded = action.payload;
-// },
-// expandCollapseEmployment: (
-//     state: StateProps,
-//     action: { payload: boolean }
-// ) => {
-//     state.employment.isExpanded = action.payload;
-// },
-// expandCollapseGender: (
-//     state: StateProps,
-//     action: { payload: boolean }
-// ) => {
-//     state.gender.isExpanded = action.payload;
-// },
-// expandCollapseBirthdate: (
-//     state: StateProps,
-//     action: { payload: boolean }
-// ) => {
-//     state.birthdate.isExpanded = action.payload;
-// },

@@ -8,10 +8,7 @@ import {
 } from "./Accordion.styled";
 import { InputField } from "..";
 import { useDispatch, useSelector } from "react-redux";
-import {
-
-    closeRestExpanded,
-} from "../../../features/form/formSlice";
+import { closeRestExpanded } from "../../../features/form/formSlice";
 
 interface AccordionProps {
     children: React.ReactNode;
@@ -19,7 +16,6 @@ interface AccordionProps {
 }
 
 export const Accordion = ({ children, inputField }: AccordionProps) => {
-    // const [isExpanded, setIsExpanded] = useState<boolean>(false);
     const { name, gender, birthdate, employment, insurances, number } =
         useSelector(({ form }) => form);
     const dispatch = useDispatch();
@@ -38,7 +34,6 @@ export const Accordion = ({ children, inputField }: AccordionProps) => {
             employment.answer && dispatch(closeRestExpanded(inputField));
         if (inputField === InputField.PhoneNumber)
             number.answer && dispatch(closeRestExpanded(inputField));
-        // setIsExpanded(!isExpanded);
     };
 
     const handleExpansion = (inputField: InputField): boolean => {
@@ -65,14 +60,9 @@ export const Accordion = ({ children, inputField }: AccordionProps) => {
                     inputField={inputField}
                 />
             </ClickableHeader>
-            {/* <ContentContainer> */}
             <AccordionContent isExpanded={handleExpansion(inputField)}>
                 {children}
             </AccordionContent>
-            {/* {handleExpansion(inputField) && (
-                    <AngleUp onClick={() => handleClick(inputField)} />
-                )}
-            </ContentContainer> */}
         </AccordionWrapper>
     );
 };

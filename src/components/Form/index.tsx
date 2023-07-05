@@ -32,7 +32,6 @@ import {
     updateNumber,
     resetNumber,
     expandCollapseNext,
-    closeAllExpanded,
 } from "../../features/form/formSlice";
 
 export enum InputField {
@@ -72,7 +71,6 @@ export const FriendsuranceForm = () => {
         } else if (field === InputField.PhoneNumber) {
             const number = getValues(InputField.PhoneNumber);
             dispatch(updateNumber(number));
-            dispatch(closeAllExpanded());
         }
         dispatch(expandCollapseNext(field));
     };
