@@ -97,6 +97,24 @@ export const CancelButton = styled.button`
     }
 `;
 
+export const ResetButton = styled.button`
+    background-color: ${({ theme }) => theme.colors.error};
+    padding: 10px 20px;
+    margin: 50px;
+    color: white;
+    font-weight: 500;
+    font-size: 1rem;
+    border: none;
+    cursor: pointer;
+    min-width: 100px;
+    max-width: 150px;
+    border-radius: 5px;
+
+    &:hover {
+        background-color: ${({ theme }) => theme.colors.errorDarker};
+    }
+`;
+
 export const ButtonWrapper = styled.div`
     display: flex;
     margin-bottom: 2rem;

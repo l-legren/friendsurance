@@ -15,6 +15,7 @@ import {
     StyledSelect,
     StyledOption,
     Divider,
+    ResetButton,
 } from "./Form.styled";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -25,6 +26,7 @@ import {
     resetField,
     setLastOpened,
     allFieldsAnswered,
+    resetAll,
 } from "../../features/form/formSlice";
 
 export enum InputField {
@@ -41,12 +43,14 @@ export const FriendsuranceForm = () => {
         register,
         getValues,
         setValue,
+        reset,
         formState: { errors },
     } = useForm();
     const { name, gender, employment, birthdate, insurances, number } =
         useSelector(({ form }) => form.fields);
     const lastOpened = useSelector(({ form }) => form.lastOpened);
     const dispatch = useDispatch();
+    const allAnswered = useSelector(({ form }) => form.allAnswered);
 
     const handleUpdate = (field: InputField) => {
         if (field === InputField.Name) {
@@ -365,6 +369,16 @@ export const FriendsuranceForm = () => {
                 </ButtonWrapper>
             </Accordion>
             <Divider />
+            {allAnswered && (
+                <ResetButton
+                    onClick={() => {
+                        dispatch(resetAll(null));
+                        reset();
+                    }}
+                >
+                    Reset
+                </ResetButton>
+            )}
         </FormContainer>
     );
 };

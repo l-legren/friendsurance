@@ -123,7 +123,10 @@ const formSlice: Slice = createSlice({
             } else {
                 state.allAnswered = false;
             }
-        }
+        },
+        resetAll: (state: StateProps) => {
+            return initialState;
+        },
     },
 });
 
@@ -134,5 +137,6 @@ export const {
     closeExpandedButSelected,
     setLastOpened,
     allFieldsAnswered,
+    resetAll
 } = formSlice.actions;
 export default formSlice.reducer;
