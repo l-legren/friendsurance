@@ -102,7 +102,6 @@ const formSlice = createSlice({
             state.employment = initialState.employment;
         },
         updateNumber: (state: StateProps, action: { payload: string }) => {
-            console.log(action.payload)
             state.number.answer = action.payload;
         },
         resetNumber: (state: StateProps) => {

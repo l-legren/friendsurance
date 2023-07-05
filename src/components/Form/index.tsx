@@ -17,7 +17,7 @@ import {
     Divider,
 } from "./Form.styled";
 import { useForm } from "react-hook-form";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import {
     updateName,
     resetName,
@@ -50,6 +50,8 @@ export const FriendsuranceForm = () => {
         setValue,
         formState: { errors },
     } = useForm();
+    const { name, gender, employment, birthdate, insurances, number } =
+        useSelector(({ form }) => form);
     const dispatch = useDispatch();
 
     const handleUpdate = (field: InputField) => {
@@ -105,6 +107,7 @@ export const FriendsuranceForm = () => {
                 <Input
                     type="text"
                     id="name"
+                    defaultValue={name.answer}
                     {...register("name", {
                         required: true,
                         minLength: {
@@ -126,7 +129,7 @@ export const FriendsuranceForm = () => {
                         type="submit"
                         onClick={() => handleUpdate(InputField.Name)}
                     >
-                        Submit
+                        {name.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton onClick={() => handleReset(InputField.Name)}>
                         Clear
@@ -170,7 +173,7 @@ export const FriendsuranceForm = () => {
                         type="submit"
                         onClick={() => handleUpdate(InputField.Gender)}
                     >
-                        Submit
+                        {gender.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton
                         onClick={() => handleReset(InputField.Gender)}
@@ -185,6 +188,7 @@ export const FriendsuranceForm = () => {
                 <Input
                     type="date"
                     id="birthdate"
+                    defaultValue={birthdate.answer}
                     {...register("birthdate", {
                         required: "Please pick your birthdate",
                     })}
@@ -199,7 +203,7 @@ export const FriendsuranceForm = () => {
                         type="submit"
                         onClick={() => handleUpdate(InputField.Birth)}
                     >
-                        Submit
+                        {birthdate.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton onClick={() => handleReset(InputField.Birth)}>
                         Clear
@@ -264,7 +268,7 @@ export const FriendsuranceForm = () => {
                         type="submit"
                         onClick={() => handleUpdate(InputField.Insurances)}
                     >
-                        Submit
+                        {insurances.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton
                         onClick={() => handleReset(InputField.Insurances)}
@@ -298,7 +302,7 @@ export const FriendsuranceForm = () => {
                         type="submit"
                         onClick={() => handleUpdate(InputField.Employment)}
                     >
-                        Submit
+                        {employment.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton
                         onClick={() => handleReset(InputField.Employment)}
@@ -313,6 +317,7 @@ export const FriendsuranceForm = () => {
                 <Input
                     type="text"
                     id="phoneNumber"
+                    defaultValue={number.answer}
                     {...register("phoneNumber", {
                         required: "Phone number is required",
                         pattern: {
@@ -333,7 +338,7 @@ export const FriendsuranceForm = () => {
                         type="submit"
                         onClick={() => handleUpdate(InputField.PhoneNumber)}
                     >
-                        Submit
+                        {number.answer ? "Edit" : "Submit"}
                     </SubmitButton>
                     <CancelButton
                         onClick={() => handleReset(InputField.PhoneNumber)}
