@@ -9,6 +9,8 @@ export const AccordionContent = styled.div<{ isExpanded: boolean }>`
     overflow: hidden;
     max-height: ${({ isExpanded }) => (isExpanded ? "1000px" : "0px")};
     transition: max-height 0.5s ease;
+    position: relative;
+    left: 0.75rem;
 `;
 
 export const ClickableHeader = styled.div``;

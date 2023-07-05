@@ -7,7 +7,8 @@ const theme = {
     colors: {
         primary: "#3399FF",
         primaryDarker: "#2b7ccd",
-        secondary: "#6c757d",
+        primaryText: "#003566",
+        secondary: "#fb8500",
         error: "#dc3545",
         errorDarker: "#6F1635",
     },

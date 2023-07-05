@@ -11,6 +11,7 @@ export const Label = styled.label`
     font-size: 1.25rem;
     margin-bottom: 2rem;
     margin-top: 2rem;
+    color: ${({ theme }) => theme.colors.primaryText};
 `;
 
 export const FieldHeader = styled.header`
@@ -18,6 +19,7 @@ export const FieldHeader = styled.header`
     font-size: 1.25rem;
     margin-bottom: 2rem;
     margin-top: 2rem;
+    color: ${({ theme }) => theme.colors.primaryText};
 `;
 
 export const Input = styled.input`

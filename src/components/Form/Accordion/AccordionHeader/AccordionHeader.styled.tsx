@@ -12,19 +12,20 @@ export const HeaderWrapper = styled.div<{ isExpanded: boolean }>`
 
 export const Title = styled.h4`
     margin-left: 1rem;
-    width: 35%
+    width: 30%;
+    color: ${({theme}) => theme.colors.primaryText}
 `;
 
 export const Answer = styled.p`
     text: gray;
     text-align: left;
-    width: 60%; 
+    width: 50%; 
 `;
 
 export const Marker = styled.div`
-    width: 20px;
-    height: 20px;
-    border-radius: 10px;
+    width: 26px;
+    height: 26px;
+    border-radius: 13px;
     background-color: green;
     margin-right: 1rem;
 `;
