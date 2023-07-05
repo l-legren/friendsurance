@@ -71,7 +71,7 @@ export const FriendsuranceForm = () => {
         dispatch(expandCollapseNext(field));
     };
 
-    const handleReset = (field: InputField, canceling: boolean) => {
+    const handleReset = (field: InputField, canceling: string | undefined) => {
         if (field === InputField.Name) {
             setValue(InputField.Name, "");
         } else if (field === InputField.Gender) {
