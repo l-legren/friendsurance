@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import { AccordionHeader } from "./AccordionHeader";
 
 import {
@@ -62,11 +62,6 @@ export const Accordion = ({ children, inputField }: AccordionProps) => {
             : false;
     };
 
-    useEffect(() => {
-        const state = handleExpansion(inputField);
-        setIsExpanded(state);
-    }, []);
-
     return (
         <AccordionWrapper>
             <ClickableHeader onClick={() => handleClick(inputField)}>
@@ -79,7 +74,9 @@ export const Accordion = ({ children, inputField }: AccordionProps) => {
                 <AccordionContent isExpanded={handleExpansion(inputField)}>
                     {children}
                 </AccordionContent>
-                {isExpanded && <AngleUp onClick={() => handleClick(inputField)} />}
+                {handleExpansion(inputField) && (
+                    <AngleUp onClick={() => handleClick(inputField)} />
+                )}
             </ContentContainer>
         </AccordionWrapper>
     );
