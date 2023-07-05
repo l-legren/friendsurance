@@ -309,11 +309,11 @@ export const FriendsuranceForm = () => {
             </Accordion>
             <Divider />
             <Accordion inputField={InputField.PhoneNumber}>
-                <Label htmlFor="number">Phone number</Label>
+                <Label htmlFor="phoneNumber">Phone number</Label>
                 <Input
                     type="text"
-                    id="number"
-                    {...register("number", {
+                    id="phoneNumber"
+                    {...register("phoneNumber", {
                         required: "Phone number is required",
                         pattern: {
                             value: /^\d{7,12}$/,
@@ -322,9 +322,9 @@ export const FriendsuranceForm = () => {
                         },
                     })}
                 />
-                {errors.number && (
+                {errors.phoneNumber && (
                     <ErrorMessage>
-                        {errors.number.message as string}
+                        {errors.phoneNumber.message as string}
                     </ErrorMessage>
                 )}
 
