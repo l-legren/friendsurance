@@ -1,46 +1,65 @@
-# Getting Started with Create React App
+# Simple Questionnaire Form
 
-This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
+This is a simple questionnaire form application built with React, TypeScript, and React Hook Form. It allows users to answer a series of questions and view the completed form.
 
-## Available Scripts
+## Features
 
-In the project directory, you can run:
+- User can answer given questions in the form.
+- User can view the completed form with all the answered questions.
+- Form validation is implemented using React Hook Form (basic validation showcase).
 
-### `yarn start`
+## Technologies Used
 
-Runs the app in the development mode.\
-Open [http://localhost:3000](http://localhost:3000) to view it in the browser.
+- **React**: JavaScript library for building user interfaces.
+- **TypeScript**: Adds static typing to JavaScript for better safety and developer experience.
+- **React Hook Form**: Simplifies form management with React.
+- **Styled Components**: Preprocessor for CSS to create better structured and styled components.
+- **Redux**: State management library for managing the application state.
+- **React Redux**: Official React bindings for Redux.
+- **Redux Toolkit**: Toolset for efficient Redux development.
+- **Redux Context**: Context API for managing application state without passing props down the component tree.
 
-The page will reload if you make edits.\
-You will also see any lint errors in the console.
+## Getting Started
 
-### `yarn test`
+To run the application locally, follow these steps:
 
-Launches the test runner in the interactive watch mode.\
-See the section about [running tests](https://facebook.github.io/create-react-app/docs/running-tests) for more information.
+1. Clone the repository: `git clone <repository-url>`
+2. Navigate to the project directory: `cd questionnaire-form`
+3. Install the dependencies: `npm install` or `yarn install`
+4. Start the development server: `npm start` or `yarn start`
+5. Open your browser and visit `http://localhost:3000` to see the application running.
 
-### `yarn build`
+## Project Structure
 
-Builds the app for production to the `build` folder.\
-It correctly bundles React in production mode and optimizes the build for the best performance.
+The project structure is organized as follows:
 
-The build is minified and the filenames include the hashes.\
-Your app is ready to be deployed!
+- `src/`
+  - `components/`: Contains reusable UI components used in the application.
+  - `app/`: Contains the Redux store setup.
+  - `features/`: Contains the state slice for managing the application state.
+  - `tools/`: Contains utility functions used throughout the application.
+  - `App.tsx`: Entry point of the application.
+  - `index.tsx`: Renders the root component and mounts the application.
 
-See the section about [deployment](https://facebook.github.io/create-react-app/docs/deployment) for more information.
+## State Management
 
-### `yarn eject`
+The application uses Redux for state management to centralize the application state and avoid prop drilling. The state slice manages all the information of the application, including the user's answers to the questions. Redux Context API is used to provide the Redux store to the components.
 
-**Note: this is a one-way operation. Once you `eject`, you can’t go back!**
+## Improvements
 
-If you aren’t satisfied with the build tool and configuration choices, you can `eject` at any time. This command will remove the single build dependency from your project.
+Here are some improvements that can be implemented for a production-ready application:
 
-Instead, it will copy all the configuration files and the transitive dependencies (webpack, Babel, ESLint, etc) right into your project so you have full control over them. All of the commands except `eject` will still work, but they will point to the copied scripts so you can tweak them. At this point you’re on your own.
+- **Unit tests**: Implement thorough unit tests using testing frameworks like Jest and React Testing Library to ensure the reliability of the components and features.
+- **Form validation**: Implement more comprehensive form validation logic to enforce required fields, validate input formats, and handle error messages.
+- **Enhanced styling**: Polish and refine the styles using styled components or other CSS frameworks to create an aesthetically pleasing user interface.
+- **Error handling**: Implement error handling for network requests, form submission failures, and other potential errors to provide a better user experience.
+- **Accessibility**: Ensure the application meets accessibility standards by including proper semantic structure, ARIA attributes, and keyboard navigation support.
+- **Deployment**: Configure deployment scripts and deploy the application to a hosting service to make it accessible online.
 
-You don’t have to ever use `eject`. The curated feature set is suitable for small and middle deployments, and you shouldn’t feel obligated to use this feature. However we understand that this tool wouldn’t be useful if you couldn’t customize it when you are ready for it.
+## License
 
-## Learn More
+This project is licensed under the MIT License. See the `LICENSE` file for more details.
 
-You can learn more in the [Create React App documentation](https://facebook.github.io/create-react-app/docs/getting-started).
+## Acknowledgments
 
-To learn React, check out the [React documentation](https://reactjs.org/).
+Special thanks to the developers who have contributed to the open-source libraries used in this project, making it easier to build React applications.
