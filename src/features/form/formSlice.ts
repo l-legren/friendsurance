@@ -1,7 +1,7 @@
 import { Slice, createSlice } from "@reduxjs/toolkit";
 
 interface Section {
-    title: string
+    title: string;
     answer: string | string[] | undefined;
     isExpanded: boolean;
 }
@@ -37,12 +37,12 @@ const initialState: StateProps = {
             isExpanded: false,
         },
         employment: {
-            title: 'Employment Status',
+            title: "Employment Status",
             answer: undefined,
             isExpanded: false,
         },
         number: {
-            title: 'Phone Number',
+            title: "Phone Number",
             answer: undefined,
             isExpanded: false,
         },
@@ -125,7 +125,7 @@ const formSlice: Slice = createSlice({
                     count++;
                 }
             }
-            if (count >= 6) {
+            if (count >= Object.keys(fields).length) {
                 state.allAnswered = true;
             } else {
                 state.allAnswered = false;
@@ -144,6 +144,6 @@ export const {
     closeExpandedButSelected,
     setLastOpened,
     allFieldsAnswered,
-    resetAll
+    resetAll,
 } = formSlice.actions;
 export default formSlice.reducer;
