@@ -1,7 +1,7 @@
 import { styled } from "styled-components";
 
 export const FormContainer = styled.div`
-    max-width: 80%;
+    max-width: 70%;
     margin: 0 auto;
     padding: 100px;
 `;
@@ -80,21 +80,25 @@ export const SubmitButton = styled.button`
 `;
 
 export const CancelButton = styled.button`
-    background-color: ${({ theme }) => theme.colors.error};
-    padding: 10px 20px;
-    margin-right: 10px;
-    color: white;
+    background-color: white;
+    color: ${({ theme }) => theme.colors.error};
+    padding: 10px 10px;
     font-weight: 500;
     font-size: 1rem;
     border: none;
     cursor: pointer;
     min-width: 100px;
     max-width: 150px;
-    border-radius: 5px;
 
     &:hover {
-        background-color: ${({ theme }) => theme.colors.errorDarker};
+        text-decoration: underline;
     }
+`;
+
+export const ResetWrapper = styled.div`
+    width: 100%;
+    display: flex;
+    justify-content: center;
 `;
 
 export const ResetButton = styled.button`

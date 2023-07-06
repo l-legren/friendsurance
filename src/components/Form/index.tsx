@@ -16,6 +16,7 @@ import {
     StyledOption,
     Divider,
     ResetButton,
+    ResetWrapper,
 } from "./Form.styled";
 import { useForm } from "react-hook-form";
 import { useDispatch, useSelector } from "react-redux";
@@ -370,14 +371,16 @@ export const FriendsuranceForm = () => {
             </Accordion>
             <Divider />
             {allAnswered && (
-                <ResetButton
-                    onClick={() => {
-                        dispatch(resetAll(null));
-                        reset();
-                    }}
-                >
-                    Reset
-                </ResetButton>
+                <ResetWrapper>
+                    <ResetButton
+                        onClick={() => {
+                            reset();
+                            dispatch(resetAll(true));
+                        }}
+                    >
+                        Reset
+                    </ResetButton>
+                </ResetWrapper>
             )}
         </FormContainer>
     );

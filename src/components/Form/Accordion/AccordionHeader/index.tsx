@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React from "react";
 import { Answer, HeaderWrapper, Title, Marker } from "./AccordionHeader.styled";
 import { useSelector } from "react-redux";
 import { InputField } from "../..";
@@ -9,67 +9,23 @@ interface AccordionHeaderProps {
     inputField: InputField;
 }
 
-interface HeaderState {
-    title: string;
-    answer: string | string[];
-}
-
 export const AccordionHeader = ({
     isExpanded,
     inputField,
 }: AccordionHeaderProps) => {
-    const { name, gender, birthdate, insurances, employment, number } =
-        useSelector(({ form }) => form.fields);
+    const fields = useSelector(({ form }) => form.fields);
     const allAnswered = useSelector(({ form }) => form.allAnswered);
-    const [headerParameters, setHeaderParameters] = useState<HeaderState>({
-        title: "",
-        answer: "",
-    });
-
-    useEffect(() => {
-        const headerSetter = () =>
-            inputField === InputField.Name
-                ? setHeaderParameters({ title: "Name", answer: name.answer })
-                : inputField === InputField.Gender
-                ? setHeaderParameters({
-                      title: "Gender",
-                      answer: gender.answer,
-                  })
-                : inputField === InputField.Birth
-                ? setHeaderParameters({
-                      title: "Birthdate",
-                      answer: birthdate.answer,
-                  })
-                : inputField === InputField.Insurances
-                ? setHeaderParameters({
-                      title: "Insurances",
-                      answer: insurances.answer,
-                  })
-                : inputField === InputField.Employment
-                ? setHeaderParameters({
-                      title: "Employment",
-                      answer: employment.answer,
-                  })
-                : inputField === InputField.PhoneNumber
-                ? setHeaderParameters({
-                      title: "Phone Number",
-                      answer: number.answer,
-                  })
-                : null;
-
-        headerSetter();
-    }, [isExpanded]);
 
     return (
         <HeaderWrapper isExpanded={isExpanded}>
-            <Title>{headerParameters.title}</Title>
+            <Title>{fields[inputField].title}</Title>
             <Answer>
-                {Array.isArray(headerParameters.answer)
-                    ? formatArrayToString(headerParameters.answer)
-                    : headerParameters.answer}
+                {Array.isArray(fields[inputField].answer)
+                    ? formatArrayToString(fields[inputField].answer)
+                    : fields[inputField].answer}
             </Answer>
             <Marker
-                hasAnswer={headerParameters.answer ? true : false}
+                hasAnswer={fields[inputField].answer ? true : false}
                 allAnswered={allAnswered}
             />
         </HeaderWrapper>

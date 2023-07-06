@@ -5,9 +5,9 @@ export const StyledHeader = styled.header`
     justify-content: center;
     align-items: center;
     font-size: 1.25rem;
-    font-weight: 500;
+    font-weight: 700;
     height: 55px;
     width: 100vw;
-    border-bottom: 1px solid black;
-
+    background-color: ${({theme}) => theme.colors.primary};
+    color: white;
 `;

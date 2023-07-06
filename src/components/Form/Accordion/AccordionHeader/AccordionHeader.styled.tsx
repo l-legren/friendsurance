@@ -22,10 +22,10 @@ export const Answer = styled.p`
     width: 50%;
 `;
 
-export const Marker = styled.div<{ hasAnswer: boolean, allAnswered: boolean }>`
-    width: 26px;
-    height: 26px;
-    border-radius: 13px;
+export const Marker = styled.div<{ hasAnswer: boolean; allAnswered: boolean }>`
+    width: 22px;
+    height: 22px;
+    border-radius: 11px;
     background-color: ${({ hasAnswer, allAnswered, theme }) =>
         allAnswered
             ? theme.colors.primaryDarker
@@ -33,5 +33,6 @@ export const Marker = styled.div<{ hasAnswer: boolean, allAnswered: boolean }>`
             ? theme.colors.secondary
             : null};
     margin-right: 1rem;
-    border: 1px solid gray;
+    border: ${({ hasAnswer, allAnswered }) =>
+        !hasAnswer && !allAnswered && "1px solid gray"};
 `;

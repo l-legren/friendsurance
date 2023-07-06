@@ -1,6 +1,7 @@
 import { Slice, createSlice } from "@reduxjs/toolkit";
 
 interface Section {
+    title: string
     answer: string | string[] | undefined;
     isExpanded: boolean;
 }
@@ -16,27 +17,33 @@ interface StateProps {
 const initialState: StateProps = {
     fields: {
         name: {
-            answer: "",
+            title: "Name",
+            answer: undefined,
             isExpanded: true,
         },
         gender: {
+            title: "Gender",
             answer: undefined,
             isExpanded: false,
         },
         birthdate: {
-            answer: "",
+            title: "Birthdate",
+            answer: undefined,
             isExpanded: false,
         },
         insurances: {
+            title: "Insurances",
             answer: undefined,
             isExpanded: false,
         },
         employment: {
-            answer: "",
+            title: 'Employment Status',
+            answer: undefined,
             isExpanded: false,
         },
         number: {
-            answer: "",
+            title: 'Phone Number',
+            answer: undefined,
             isExpanded: false,
         },
     },

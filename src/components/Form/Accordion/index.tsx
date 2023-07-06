@@ -32,8 +32,7 @@ export const Accordion = ({ children, inputField }: AccordionProps) => {
         if (inputField === InputField.Birth)
             birthdate.answer && dispatch(closeExpandedButSelected(inputField));
         if (inputField === InputField.Insurances)
-            insurances.answer.length > 0 &&
-                dispatch(closeExpandedButSelected(inputField));
+            insurances.answer && dispatch(closeExpandedButSelected(inputField));
         if (inputField === InputField.Employment)
             employment.answer && dispatch(closeExpandedButSelected(inputField));
         if (inputField === InputField.PhoneNumber)
